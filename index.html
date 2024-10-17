@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>Budget Tracker</h1>
+        
+        <!-- Input form for new transaction -->
+        <div class="form-control">
+            <label for="description">Description</label>
+            <input type="text" id="description" placeholder="Enter description">
+        </div>
+
+        <div class="form-control">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount (+ for income, - for expense)">
+        </div>
+
+        <button id="addTransaction">Add Transaction</button>
+
+        <!-- Display Balance -->
+        <h2>Current Balance: $<span id="balance">0.00</span></h2>
+
+        <!-- Income and Expense display -->
+        <div class="income-expense">
+            <div class="income">
+                <h3>Income</h3>
+                <p>$<span id="income">0.00</span></p>
+            </div>
+            <div class="expense">
+                <h3>Expenses</h3>
+                <p>$<span id="expense">0.00</span></p>
+            </div>
+        </div>
+
+        <!-- Transaction List -->
+        <h3>Transactions</h3>
+        <ul id="transactionList"></ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

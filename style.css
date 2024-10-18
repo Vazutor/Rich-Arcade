@@ -13,7 +13,7 @@ body {
 }
 
 .app-container {
-    background: white;
+    background: black;
     padding: 20px;
     width: 80%; /* Set width to 90% for spacing */
     max-width: 600px; /* Limit the max width */
@@ -21,7 +21,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center; /* Center text horizontally */
-    border: 3px solid black; /* Pixelated bold border */
+    border: 3px solid grey; /* Pixelated bold border */
     
     display: flex; /* Make the container a flexbox */
     flex-direction: column; /* Arrange items vertically */

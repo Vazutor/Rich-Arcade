@@ -1,48 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcade Budget Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="app-container">
-        <h1>Budget Tracker</h1>
-        
-        <!-- Input form for new transaction -->
-        <div class="form-control">
-            <label for="description">Description</label>
-            <input type="text" id="description" placeholder="Enter description">
+<body class="bg-black text-white font-arcade flex flex-col justify-center items-center h-screen">
+  <nav class="flex justify-center py-4">
+    <h1 class="text-3xl sm:text-4xl text-budget-green text-center">💰 Arcade Budget Tracker</h1>
+  </nav>
+
+  <main class="max-w-md mx-auto mt-6 sm:mt-10 p-4 sm:p-6">
+    <section class="bg-light-blue-container p-4 sm:p-6 rounded-lg shadow-lg text-center">
+      <h2 class="text-2xl sm:text-3xl text-dark-blue">Balance: $<span id="balance" class="text-dark-blue">0.00</span></h2>
+    </section>
+
+    <section class="mt-6 sm:mt-10">
+      <form id="transaction-form" class="bg-light-blue-container p-4 sm:p-6 rounded-lg">
+        <h3 class="text-xl sm:text-2xl mb-4 text-dark-blue">Add Transaction</h3>
+        <div class="flex flex-col sm:flex-row justify-between mb-4">
+          <input type="text" id="transaction-text" class="w-full px-2 py-2 mb-2 sm:mb-0 sm:mr-2 text-black text-sm" placeholder="Enter description" required>
+          <input type="number" id="transaction-amount" class="w-full sm:w-24 px-4 py-2 text-black" placeholder="$" required>
         </div>
+        <button class="bg-neon-green hover:bg-neon-yellow text-black px-4 py-2 rounded arcade-btn w-full">Add Transaction</button>
+      </form>
+    </section>
 
-        <div class="form-control">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" placeholder="Enter amount (+ for income, - for expense)">
-        </div>
+    <section class="mt-6 sm:mt-10">
+      <h3 class="text-xl sm:text-2xl mb-4 text-budget-green">Transactions</h3>
+      <ul id="transaction-list" class="bg-light-blue-container p-4 sm:p-6 rounded-lg">
+        <!-- Transactions will be added dynamically here -->
+      </ul>
+    </section>
+  </main>
 
-        <button id="addTransaction">Add Transaction</button>
-
-        <!-- Display Balance -->
-        <h2>Current Balance: $<span id="balance">0.00</span></h2>
-
-        <!-- Income and Expense display -->
-        <div class="income-expense">
-            <div class="income">
-                <h3>Income</h3>
-                <p>$<span id="income">0.00</span></p>
-            </div>
-            <div class="expense">
-                <h3>Expenses</h3>
-                <p>$<span id="expense">0.00</span></p>
-            </div>
-        </div>
-
-        <!-- Transaction List -->
-        <h3>Transactions</h3>
-        <ul id="transactionList"></ul>
-    </div>
-
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

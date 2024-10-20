@@ -1,51 +1,60 @@
 let balance = 0;
-let income = 0;
-let expense = 0;
+const balanceElement = document.getElementById('balance');
+const transactionForm = document.getElementById('transaction-form');
+const transactionList = document.getElementById('transaction-list');
 
-const balanceDisplay = document.getElementById('balance');
-const incomeDisplay = document.getElementById('income');
-const expenseDisplay = document.getElementById('expense');
-const transactionList = document.getElementById('transactionList');
-const addTransactionBtn = document.getElementById('addTransaction');
+const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
-addTransactionBtn.addEventListener('click', () => {
-  const descriptionInput = document.getElementById('description');
-  const amountInput = document.getElementById('amount');
-
-  const description = descriptionInput.value.trim();
-  const amount = parseFloat(amountInput.value.trim());
-
-  if (description === '' || isNaN(amount)) {
-    alert("Please enter a valid description and amount");
-    return;
-  }
-
-  // Add to transaction list
-  const transactionItem = document.createElement('li');
-  transactionItem.innerText = `${description}: $${amount}`;
-
-  if (amount > 0) {
-    income += amount;
-    transactionItem.classList.add('income');
-  } else {
-    expense += Math.abs(amount);
-    transactionItem.classList.add('expense');
-  }
-
-  balance += amount;
-
-  // Update the balance and display
-  updateDisplay();
-
-  transactionList.appendChild(transactionItem);
-
-  // Clear the input fields
-  descriptionInput.value = '';
-  amountInput.value = '';
-});
-
-function updateDisplay() {
-  balanceDisplay.innerText = balance.toFixed(2);
-  incomeDisplay.innerText = income.toFixed(2);
-  expenseDisplay.innerText = expense.toFixed(2);
+function updateBalance() {
+  balance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+  balanceElement.textContent = balance.toFixed(2);
 }
+
+function addTransaction(e) {
+  e.preventDefault();
+  
+  const text = document.getElementById('transaction-text').value;
+  const amount = parseFloat(document.getElementById('transaction-amount').value);
+
+  if (!text || !amount) return;
+
+  const transaction = {
+    id: Math.floor(Math.random() * 1000000),
+    text,
+    amount,
+  };
+
+  transactions.push(transaction);
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+  updateBalance();
+  renderTransactions();
+  transactionForm.reset();
+}
+
+function deleteTransaction(id) {
+  const index = transactions.findIndex(transaction => transaction.id === id);
+  transactions.splice(index, 1);
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+  updateBalance();
+  renderTransactions();
+}
+
+function renderTransactions() {
+  transactionList.innerHTML = '';
+  transactions.forEach(transaction => {
+    const li = document.createElement('li');
+    li.classList.add('flex', 'justify-between', 'bg-neon-green', 'mb-2', 'px-4', 'py-2');
+    li.innerHTML = `
+      <span>${transaction.text}</span>
+      <span>$${transaction.amount.toFixed(2)}</span>
+      <button onclick="deleteTransaction(${transaction.id})" class="arcade-btn text-neon-pink">❌</button>
+    `;
+    transactionList.appendChild(li);
+  });
+}
+
+transactionForm.addEventListener('submit', addTransaction);
+window.onload = function() {
+  renderTransactions();
+  updateBalance();
+};
